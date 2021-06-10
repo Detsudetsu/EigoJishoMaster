@@ -2,15 +2,27 @@
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isProduction = process.env.NODE_ENV == 'production';
 
 
-const stylesHandler = 'style-loader';
+const plugins = [
+    new HtmlWebpackPlugin({
+        template: 'index.html',
+    }),
+
+    // Add your plugins here
+    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+]
+if (isProduction) { plugins.push(new MiniCssExtractPlugin()) }
+
+const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
 
 
 
 const config = {
+    mode: isProduction ? 'production' : 'development',
     entry: './src/index.ts',
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -19,14 +31,7 @@ const config = {
         open: true,
         host: 'localhost',
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: 'index.html',
-        }),
-
-        // Add your plugins here
-        // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-    ],
+    plugins: plugins,
     module: {
         rules: [
             {
@@ -36,7 +41,7 @@ const config = {
             },
             {
                 test: /\.css$/i,
-                use: [stylesHandler,'css-loader'],
+                use: [stylesHandler, 'css-loader'],
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
@@ -53,11 +58,5 @@ const config = {
 };
 
 module.exports = () => {
-    if (isProduction) {
-        config.mode = 'production';
-        
-    } else {
-        config.mode = 'development';
-    }
     return config;
 };
