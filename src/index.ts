@@ -11,3 +11,14 @@ search_box.addEventListener("submit", e => {
     window.open("https://www.etymonline.com/search?q=" + query)
     e.preventDefault()
 })
+
+const setFillHeight = () => {
+    const vh = document.documentElement.clientHeight;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+// 画面のサイズ変動があった時に高さを再計算する
+window.addEventListener('resize', setFillHeight);
+
+// 初期化
+setFillHeight();
