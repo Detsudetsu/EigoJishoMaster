@@ -22,12 +22,20 @@ search_box.addEventListener("keydown", e => {
             const isFocusOnTopButton = document.activeElement === suggestionButtons[0]
             const prev = isFocusOnTopButton ? search_text : document.activeElement.previousElementSibling
             tryFocus(prev)
+            if (isFocusOnTopButton) {
+                moveCaretToEnd(search_text)
+            }
             break
         default:
             if (e.key.length === 1 || e.key === "Backspace") {
                 search_text.focus()
             }
             break
+    }
+
+    function moveCaretToEnd(element: HTMLInputElement) {
+        element.setSelectionRange(element.textContent.length - 1, element.textContent.length - 1)
+        e.preventDefault()  // prevent ArrowUp being inputted (and moving caret start of text)
     }
 
     function tryFocus(elem: Element) {
