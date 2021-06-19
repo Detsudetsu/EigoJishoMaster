@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './index.css'
 import { debounce } from './debounce'
 import { SubmitEvent } from './SubmitEvent'
 import { updateSuggestions } from './suggest'
