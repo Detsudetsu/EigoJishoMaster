@@ -7,8 +7,8 @@ import { updateSuggestions } from './suggest'
 const search_box = document.getElementById("search_box")
 const search_text = document.getElementById("search_text")
 if (!(search_text instanceof HTMLInputElement)) throw new TypeError()
-const suggestionGroup = document.getElementById("suggestions")
-const suggestionButtons = suggestionGroup.getElementsByTagName("button")
+const suggestionContainer = document.getElementById("suggestions")
+const suggestionButtons = suggestionContainer.getElementsByTagName("button")
 
 search_box.addEventListener("keydown", e => {
     switch (e.code) {
@@ -57,7 +57,7 @@ const debouncedUpdateSuggestions = debounce(updateSuggestions)
 
 search_box.addEventListener("input", e => {
     const text = search_text.value
-    debouncedUpdateSuggestions(text, suggestionGroup)
+    debouncedUpdateSuggestions(text, suggestionContainer)
 })
 
 const setFillHeight = () => {
