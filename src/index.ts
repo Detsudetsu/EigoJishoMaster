@@ -46,10 +46,17 @@ search_box.addEventListener("keydown", e => {
 })
 
 search_box.addEventListener("submit", (e: SubmitEvent) => {
-    const query = e.submitter.attributes.getNamedItem("value").value
-    window.open("https://www.google.com/search?q=meaning+" + query)
-    window.open("https://eow.alc.co.jp/search?q=" + query)
-    window.open("https://www.etymonline.com/search?q=" + query)
+    const query = e.submitter.attributes.getNamedItem("value").value;
+
+    // Open google.com
+    window.open(`https://www.google.com/search?q=meaning+${query}`, "_blank");
+    setTimeout(() => {
+        // Open eow.alc.co.jp
+        window.open(`https://eow.alc.co.jp/search?q=${query}`, "_blank");
+        // Open etymonline.com
+        window.location.href = `https://www.etymonline.com/search?q=${query}`;
+    }, 100);
+    
     e.preventDefault()
 })
 
